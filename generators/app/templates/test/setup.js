@@ -26,7 +26,7 @@ const mockgoose = new Mockgoose(mongoose)
 
 beforeAll(async () => {
   await mockgoose.prepareStorage()
-  mongoose.connect(mongo.uri)
+  mongoose.connect(mongo.uri, mongo.opts)
 })
 
 afterAll(() => {

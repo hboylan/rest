@@ -37,17 +37,16 @@ const config = {
     <%_ } _%>
     mongo: {
       options: {
-        db: {
-          safe: true
-        }
+        useMongoClient: true,
+        keepAlive: true
       }
     }
   },
   test: {
     mongo: {
       uri: 'mongodb://localhost/<%= slug %>-test',
-      options: {
-        debug: false
+      opts: {
+        reconnectTries: 1
       }
     }
   },
@@ -55,7 +54,7 @@ const config = {
     mongo: {
       uri: 'mongodb://localhost/<%= slug %>-dev',
       options: {
-        debug: true
+        reconnectTries: 10
       }
     }
   },
@@ -63,7 +62,10 @@ const config = {
     ip: process.env.IP || undefined,
     port: process.env.PORT || 8080,
     mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://localhost/<%= slug %>'
+      uri: process.env.MONGODB_URI || 'mongodb://localhost/<%= slug %>',
+      opts: {
+        reconnectTries: 30
+      }
     }
   }
 }
